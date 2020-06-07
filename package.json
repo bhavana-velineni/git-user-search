@@ -32,9 +32,17 @@
     "sass-loader": "^8.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.8.0",
+    "redux-devtools-extension": "2.13.8",
+    "redux-immutable-state-invariant": "1.2.4"
   },
   "dependencies": {
-    "@babel/runtime": "^7.5.5"
+    "@babel/runtime": "^7.5.5",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "react-bootstrap": "^1.0.1",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   }
 }
