@@ -5,6 +5,7 @@ import * as actions from './actions';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import FormControl from 'react-bootstrap/FormControl';
 
 const App = (props) => {
@@ -32,8 +33,20 @@ const App = (props) => {
             placeholder="Search for an user"
             onChange={event => handleChange(event)}
           />
-          {props.usersData.total_count}
         </Col>
+      </Row>
+      <Row>
+        {props.usersData && props.usersData.items && props.usersData.items.length && props.usersData.items.map((user) =>
+          <Col key={user.id} sm={4}>
+            <Card>
+              <Card.Img variant="top" src={user.avatar_url} />
+              <Card.Body>
+                <Card.Title>{user.login}</Card.Title>
+                <Card.Link href={user.html_url} target='_blank'>view profile</Card.Link>
+              </Card.Body>
+            </Card>
+          </Col>
+        )}
       </Row>
     </Container>
   );
