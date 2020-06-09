@@ -9,6 +9,12 @@ export const loadAllUsers = data => {
 }
 
 export const getUserList = (searchString) => {
-    return (dispatch) => searchUsers(searchString)
-            .then(searchResult => dispatch(loadAllUsers(searchResult.data)));
+    return (dispatch) => {
+        if (searchString && searchString.trim() != '') {
+            searchUsers(searchString)
+                .then(searchResult => dispatch(loadAllUsers(searchResult.data)));
+        } else {
+            dispatch(loadAllUsers(undefined));
+        }
+    }
 };
