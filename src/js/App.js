@@ -6,33 +6,37 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 
 const App = (props) => {
 
   const [searchString, updateSearchString] = useState();
 
-  useEffect(() => {
-    if (searchString && searchString.trim() != '') {
-      props.actions.getUserList(searchString);
-    }
-  }, [searchString]);
-
   const handleChange = event => {
     event.preventDefault();
     updateSearchString(event.target.value);
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (searchString && searchString.trim() != '') {
+      props.actions.getUserList(searchString);
+    }
   }
 
   return (
     <Container>
       <Row className="justify-content-md-center">
         <Col lg="5">
+        <Form onSubmit={handleSubmit}>
           <FormControl
             type="text"
             className="searchInput"
             placeholder="Search for an user"
             onChange={event => handleChange(event)}
           />
+          </Form>
         </Col>
       </Row>
       <Row>
@@ -42,7 +46,7 @@ const App = (props) => {
               <Card.Img variant="top" src={user.avatar_url} />
               <Card.Body>
                 <Card.Title>{user.login}</Card.Title>
-                <Card.Link href={user.html_url} target='_blank'>view profile</Card.Link>
+                <Card.Link href={user.html_url} target="_userProfile">view profile</Card.Link>
               </Card.Body>
             </Card>
           </Col>
