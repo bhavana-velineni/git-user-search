@@ -8,10 +8,10 @@ export const loadAllUsers = data => {
     }
 }
 
-export const getUserList = (searchString) => {
+export const getUserList = (searchString, perPage, currentPageNo) => {
     return (dispatch) => {
         if (searchString && searchString.trim() != '') {
-            searchUsers(searchString)
+            searchUsers(searchString, perPage, currentPageNo)
                 .then(searchResult => dispatch(loadAllUsers(searchResult.data)));
         } else {
             dispatch(loadAllUsers(undefined));

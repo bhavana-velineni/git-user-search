@@ -5,6 +5,7 @@ import * as actions from './actions';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
@@ -15,6 +16,9 @@ const App = (props) => {
 
   const [searchString, updateSearchString] = useState();
   const [loading, updateLoading] = useState(false);
+  const [pageNo, updatePageNo] = useState(1);
+
+  const [perPage] = useState(20);
 
   const handleChange = event => {
     event.preventDefault();
@@ -22,12 +26,20 @@ const App = (props) => {
   }
 
   const handleSubmit = event => {
-    event.preventDefault();
+    if (event) {
+      event.preventDefault();
+    }
     updateLoading(true);
     (async () => {
-      await props.actions.getUserList(searchString);
+      await props.actions.getUserList(searchString, perPage, pageNo);
       updateLoading(false);
     })();
+  }
+
+  const handleClick = () => {
+    event.preventDefault();
+    updatePageNo(pageNo + 1);
+    handleSubmit();
   }
 
   return (
@@ -53,8 +65,8 @@ const App = (props) => {
           </Row>
           <Row>
             {props.usersData && props.usersData.total_count ? props.usersData.items.map((user) =>
-              <Col key={user.id} sm={4}>
-                <Card>
+              <Col key={user.id} sm={3}>
+                <Card className="card">
                   <Card.Img variant="top" src={user.avatar_url} />
                   <Card.Body>
                     <Card.Title>{user.login}</Card.Title>
@@ -66,6 +78,9 @@ const App = (props) => {
               Your seach for <b>'{searchString}'</b> returned <b>{props.usersData.total_count}</b> matches.
     </Alert> : null}
           </Row></> : <Spinner animation="border" />}
+          <Row>{props.usersData && props.usersData.total_count > perPage ?
+            <Button className='button-next' onClick={handleClick}> Next </Button> : null}
+            </Row>
     </Container>
   );
 };
