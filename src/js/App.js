@@ -12,6 +12,7 @@ import Card from 'react-bootstrap/Card';
 import FormControl from 'react-bootstrap/FormControl';
 import FormGroup from 'react-bootstrap/FormGroup';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Pagination from 'react-bootstrap/Pagination'
 
 const App = (props) => {
 
@@ -19,7 +20,7 @@ const App = (props) => {
   const [loading, updateLoading] = useState(false);
   const [pageNo, updatePageNo] = useState(0);
 
-  const [perPage] = useState(20);
+  const [perPage] = useState(60);
 
   useEffect(() => {
     updateLoading(true);
@@ -34,6 +35,19 @@ const App = (props) => {
       updatePageNo(1);
       updateSearchString(event.target.value);
     }
+  }
+
+  const getPaginatedResults = (totalCount, perPageItems) => {
+    const pageNumbers = Math.ceil(totalCount / perPageItems);
+    let items = [];
+    for (let number = 1; number <= pageNumbers; number++) {
+      items.push(
+        <Pagination.Item key={number}>
+          {number}
+        </Pagination.Item>,
+      );
+    }
+    return items;
   }
 
   return (
@@ -83,6 +97,18 @@ const App = (props) => {
           {props.usersData && props.usersData.total_count > perPage ?
             <Button className='button-next' onClick={() => { updatePageNo(pageNo => pageNo + 1); }} > Next </Button> : null}
         </Col>
+      </Row>
+      <Row>
+        <Col>
+        {props.usersData && props.usersData.total_count ?
+          <Pagination>
+            <Pagination.First />
+            <Pagination.Prev />
+            {getPaginatedResults(props.usersData.total_count, perPage)}
+            <Pagination.Next />
+            <Pagination.Last />
+          </Pagination> : null}
+      </Col>
       </Row>
     </Container>
   );
