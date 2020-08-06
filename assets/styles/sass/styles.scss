@@ -3,8 +3,28 @@ body {
     font-size: 14px;
     margin: 0;
     padding: 0;
-    background: tomato;
-	color: #fff;
 }
-  
-  
+
+.searchInput {
+    margin: 25px;
+}
+
+.alert {
+    margin-left: 35%;
+}
+
+.card {
+    margin-bottom: 50px;
+    width: 70%;
+    height: 80%;
+}
+
+.button-prev {
+    margin-left: 10%;
+    margin-bottom: 5%
+}
+
+.button-next {
+    margin-left: 90%;
+    margin-bottom: 5%
+}
