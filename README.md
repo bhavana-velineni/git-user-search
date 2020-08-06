@@ -30,6 +30,8 @@ https://api.github.com/search/users
 - per_page - no of users you want to display per page. Default is 30.
 - page - page number that you are on
 
+**Sample**: https://api.github.com/search/users?q=bhavana&per_page=20&page=1
+
 More information at : https://docs.github.com/en/rest/reference/users
 
 
